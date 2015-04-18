@@ -26,10 +26,9 @@ end
 
 post '/commit' do
     json = JSON.parse(request.env["rack.input"].read)
-    $socket.puts "NOTICE #{IRC_CHANNEL} :New Commits for '" + json['repository']['name'] + "'"
-
+    $socket.puts "NOTICE #{IRC_CHANNEL} : #{json['total_commits_count']} new Commits for \x0306#{json['repository']['name']}\x0315  by #{2.chr} #{json['user_name']} #{15.chr} : #{json['repository']['homepage']}/compare/#{json['before'].slice(0,7)}...#{json['after'].slice(0,7)}"
     json['commits'].each do |commit|
-            $socket.puts "NOTICE #{IRC_CHANNEL} :by #{commit['author']['name']} | #{commit['message']} | #{commit['url']}"
+            $socket.puts "NOTICE #{IRC_CHANNEL} :by #{2.chr + commit['author']['name'] + 15.chr } | \x0309#{commit['message']}\x0315 | #{json['repository']['homepage'] + "/commit/" + commit['id'].slice(0,7)}"
     end
 end
 
