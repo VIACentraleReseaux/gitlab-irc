@@ -15,14 +15,8 @@ gem install sinatra
 </code>
 
 ### Configure
-Set IRC settings in gitlab-irc.rb
+Copy config.yml.dist to config.yml and set right parameters.
 
-    # IRC Config
-    IRC_HOST = 'irc.freenode.org'
-    IRC_PORT = 6667
-    IRC_CHANNEL = '#yourchannel'
-    IRC_NICK = 'GitLabBot'
-    IRC_REALNAME = 'GitLabBot'
 
 ### Launch
     ruby gitlab-irc.rb
@@ -44,3 +38,4 @@ Every Gitlab repository can have individual Web Hooks. Copy your gitlab-irc addr
 To keep gitlab-irc running, you should start it in some kind of background task. A good choice would be <code>tmux</code> or <code>screen</code>.
 
 If you want to configure the webserver port, take a look at the [Sinatra Documentation](http://www.sinatrarb.com/configuration.html). You can also run it like any other Sinatra app.
+
