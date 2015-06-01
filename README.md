@@ -17,9 +17,8 @@ gem install sinatra
 ### Configure
 Copy config.yml.dist to config.yml and set right parameters.
 
-The 'IRC\_CHANNEL' is the default channel to send the message if the hook is sent to '/', for instance '#channel'.
+The 'IRC\_CHANNEL' is the default channel to send the message to, if the hook is set to '/'.
 
-On Gitlab, configure the web hook for push messages to 'http://botserver/nameofthechannel' to send the messages to #nameofthechannel (thus, it is possible to set up one bot to serve multiple channels/projects).
 
 
 ### Launch
@@ -35,7 +34,7 @@ You should see output like this:
 
 ### Enable Web Hook Support in your GitLab Repository
 
-Every Gitlab repository can have individual Web Hooks. Copy your gitlab-irc address <code>http://xxx.xxx.xxx.xxx:4567/commit</code> and set it for every Repository that should send notifications to your IRC channel.
+Every Gitlab repository can have individual Web Hooks. Copy your gitlab-irc address <code>http://xxx.xxx.xxx.xxx:4567/nameofthechannel</code> and set it for every Repository that should send notifications to the channel #nameofthechannel.
 
 ### Run in Background
 
