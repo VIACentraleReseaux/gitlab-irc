@@ -4,4 +4,4 @@
   :Channel: "#project"
   :Nick: "GitlabBot"
   :RealName: "Gitlab Bot"
-
+:Debug: false
