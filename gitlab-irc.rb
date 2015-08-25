@@ -32,18 +32,22 @@ Thread.new do
 end
 post '/*' do
   $channel  = (request.path_info == '/') ? IRC_CHANNEL : '#' + request.path_info.split('/')[1]
+  puts $channel if DEBUG
   json = JSON.parse(request.env["rack.input"].read)
+  puts json if DEBUG
   $socket.puts "NOTICE #{$channel} : #{json['total_commits_count']} new Commits for \x0306#{json['repository']['name']}\x0315  by #{2.chr} #{json['user_name']} #{15.chr} : #{json['repository']['homepage']}/compare/#{json['before'].slice(0,7)}...#{json['after'].slice(0,7)}"
+  puts "NOTICE #{$channel} : #{json['total_commits_count']} new Commits for \x0306#{json['repository']['name']}\x0315  by #{2.chr} #{json['user_name']} #{15.chr} : #{json['repository']['homepage']}/compare/#{json['before'].slice(0,7)}...#{json['after'].slice(0,7)}" if DEBUG
   i = 0
   json['commits'].each do |commit|
     $socket.puts "NOTICE #{$channel} :by #{2.chr + commit['author']['name'] + 15.chr } | \x0309#{commit['message'].split("\n")[0]}\x0315 | #{json['repository']['homepage'] + "/commit/" + commit['id'].slice(0,7)}"
+    puts "NOTICE #{$channel} :by #{2.chr + commit['author']['name'] + 15.chr } | \x0309#{commit['message'].split("\n")[0]}\x0315 | #{json['repository']['homepage'] + "/commit/" + commit['id'].slice(0,7)}" if DEBUG
     i += 1
     if i == 3
       break
     end
   end
   if i < json['commits'].length
-    $socket.puts "NOTICE #{IRC_CHANNEL} : ... And many others."
+    $socket.puts "NOTICE #{$channel} : ... And many others."
   end
 end
 
